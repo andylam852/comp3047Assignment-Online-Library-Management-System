@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Borrow Books!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <span class="navbar-brand">Online Library</span>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/books">Books</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/search">Search</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container mt-4">
+      <!-- Carousel -->
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="max-width: 400px; margin: 0 auto;">
+        <div class="carousel-indicators">
+          <% newBooks.forEach((book, index) => { %>
+            <button
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide-to="<%= index %>"
+              class="<%= index === 0 ? 'active' : '' %>"
+              aria-current="<%= index === 0 ? 'true' : 'false' %>"
+              aria-label="Slide <%= index + 1 %>"
+            ></button>
+          <% }); %>
+        </div>
+        <div class="carousel-inner">
+          <% newBooks.forEach((book, index) => { %>
+            <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+              <img src="<%= book.coverImage %>" class="d-block w-100" alt="<%= book.title %>" />
+              <div class="carousel-caption d-none d-md-block">
+                <h5 style="color: black;"><%= book.title %></h5>
+              </div>
+            </div>
+          <% }); %>
+        </div>
+        <button
+          class="carousel-control-prev"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="prev"
+          style="filter: invert(50%);"
+        >
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button
+          class="carousel-control-next"
+          type="button"
+          data-bs-target="#carouselExampleIndicators"
+          data-bs-slide="next"
+          style="filter: invert(50%);"
+        >
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+
+      <!-- Tabs -->
+      <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link active"
+            id="new-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#new"
+            type="button"
+            role="tab"
+            aria-controls="new"
+            aria-selected="true"
+          >
+            New
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="trending-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#trending"
+            type="button"
+            role="tab"
+            aria-controls="trending"
+            aria-selected="false"
+          >
+            Trending
+          </button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button
+            class="nav-link"
+            id="hot-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#hot"
+            type="button"
+            role="tab"
+            aria-controls="hot"
+            aria-selected="false"
+          >
+            Hot
+          </button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div
+          class="tab-pane fade show active"
+          id="new"
+          role="tabpanel"
+          aria-labelledby="new-tab"
+        >
+          <ul class="list-group mt-3">
+            <% newBooks.forEach(book => { %>
+            <li class="list-group-item">
+              <img src="<%= book.coverImage %>" class="me-3" alt="<%= book.title %>" width="64" height="64" />
+              <strong><%= book.title %></strong>
+              <p><%= book.description %></p>
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="trending"
+          role="tabpanel"
+          aria-labelledby="trending-tab"
+        >
+          <ul class="list-group mt-3">
+            <% trendingBooks.forEach(book => { %>
+            <li class="list-group-item">
+              <img src="<%= book.coverImage %>" class="me-3" alt="<%= book.title %>" width="64" height="64" />
+              <strong><%= book.title %></strong>
+              <p><%= book.description %></p>
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+        <div
+          class="tab-pane fade"
+          id="hot"
+          role="tabpanel"
+          aria-labelledby="hot-tab"
+        >
+          <ul class="list-group mt-3">
+            <% hotBooks.forEach(book => { %>
+            <li class="list-group-item">
+              <img src="<%= book.coverImage %>" class="me-3" alt="<%= book.title %>" width="64" height="64" />
+              <strong><%= book.title %></strong>
+              <p><%= book.description %></p>
+            </li>
+            <% }); %>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
